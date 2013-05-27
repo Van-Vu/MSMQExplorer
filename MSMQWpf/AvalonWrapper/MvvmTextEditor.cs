@@ -49,14 +49,9 @@ namespace MSMQWpf.AvalonWrapper
 
         protected override void OnTextChanged(EventArgs e)
         {
-            //Document.UndoStack.SizeLimit = 0;den
-            //EndUndoGroup();
-            //Document.BeginUpdate();
             SetCurrentValue(DocumentTextProperty, base.Text);
-            //SetValue(DocumentTextProperty, base.Text);
-            //FoldingStrategy.UpdateFoldings(FoldingManager, Document);
+            FoldingStrategy.UpdateFoldings(FoldingManager, Document);
             base.OnTextChanged(e);
-            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
