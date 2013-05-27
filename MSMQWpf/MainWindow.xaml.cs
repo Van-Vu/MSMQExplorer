@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Messaging;
+using System.IO;
+using System.Reflection;
 using System.Windows;
-using MSMQTestMessage;
+using System.Xml;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Folding;
 
 
 namespace MSMQWpf
 {
-    using System.Configuration;
-    using System.Xml.Linq;
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -23,7 +22,6 @@ namespace MSMQWpf
 
             //var test = MessageQueue.GetPrivateQueuesByMachine(".");
             ////var smt = new CollectionTest();
-
             DataContext = new MainWindowViewModel();
         }
 
@@ -38,13 +36,15 @@ namespace MSMQWpf
 
         private void btnSendToQueue_Click(object sender, RoutedEventArgs e)
         {
-            var boxName = txtBoxName.Text.Trim();
-            var queueName = txtQueueName.Text.Trim();
 
-            var queue = new Queue(boxName, queueName);
+            //var boxName = txtBoxName.Text.Trim();
+            //var queueName = txtQueueName.Text.Trim();
 
-            XDocument doc = XDocument.Parse("<test>this is test</test>");
-            queue.SendObject(doc.Root);
+            //var queue = new Queue(boxName, queueName);
+
+            //XDocument doc = XDocument.Parse("<test>this is test</test>");
+            //queue.SendObject(doc.Root);
+            //foldingStrategy.UpdateFoldings(foldingManager, textEditor.Document);
         }
 
         private void btnToXML_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,7 @@ namespace MSMQWpf
 
             var detail = Queue.SerializeTheMessage(theObject.m_model);
 
-            txtXMLResult.Text = detail.ToString();
+            //txtXMLResult.Text = detail.ToString();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

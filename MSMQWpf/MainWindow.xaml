@@ -1,8 +1,8 @@
 ﻿<Window x:Class="MSMQWpf.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-        Title="MainWindow" Height="466" Width="1048" xmlns:my="clr-namespace:MSMQWpf" Loaded="Window_Loaded">
+        xmlns:avalonwrapper="clr-namespace:MSMQWpf.AvalonWrapper"
+        Title="MainWindow" Height="466" Width="1048" Loaded="Window_Loaded">
     <Grid>
         <ComboBox Height="22" HorizontalAlignment="Left" Margin="12,12,0,0" Name="cboMessageList" VerticalAlignment="Top" Width="377" ItemsSource="{Binding Path=MessageList}"  SelectedItem="{Binding Path=SelectedType,Mode=TwoWay}" />
         <Button Content="Load Properties" Height="21" HorizontalAlignment="Left" Margin="407,12,0,0" Name="btnLoadProperties" VerticalAlignment="Top" Width="105" Command="{Binding Path=LoadPropertiesCommand}"/>
@@ -26,18 +26,19 @@
         <TextBlock Height="23" HorizontalAlignment="Left" Margin="335,363,0,0" Name="textBlock2" Text="Queue name:" VerticalAlignment="Top" />
         <TextBox Height="23" HorizontalAlignment="Right" Margin="0,360,481,0" Name="txtQueueName" VerticalAlignment="Top" Width="120" />
         <Button Content="To XML" Height="23" HorizontalAlignment="Left" Margin="425,161,0,0" Name="btnToXML" VerticalAlignment="Top" Width="75" Command="{Binding Path=ConvertToXmlCommand}" />
-        <avalonEdit:TextEditor
-				Name="textEditor"
-				FontFamily="Consolas"
+        <avalonwrapper:MvvmTextEditor
+				x:Name="textEditor"
+                FontFamily="Consolas"
 				FontSize="10pt"
-				SyntaxHighlighting="C#"
                 Height="221" 
                 HorizontalAlignment="Left" 
                 Margin="506,65,0,0"
                 VerticalAlignment="Top" 
                 Width="506" 
                 Background="LightGray"
-            Text ="{Binding Path=xmlText}">
-        </avalonEdit:TextEditor>
+                SyntaxHighlighting="XML"
+                DocumentText ="{Binding Path=Message,Mode=TwoWay}"/>
+
+
     </Grid>
 </Window>

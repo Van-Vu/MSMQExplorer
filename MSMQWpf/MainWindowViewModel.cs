@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Text;
+using ICSharpCode.AvalonEdit.Document;
 
 namespace MSMQWpf
 {
@@ -10,52 +9,53 @@ namespace MSMQWpf
 
     public class MainWindowViewModel : ViewModelBase
     {
-        public MainWindowViewModel() 
+        public MainWindowViewModel()
         {
             LoadAssembly();
             LoadPropertiesCommand = new RelayCommand(param => LoadProperties(), param => CanLoadProperTies());
             ConvertToXmlCommand = new RelayCommand(param => ConvertToXml(), param => CanConvertToXml());
+
         }
 
-        private List<Type> _MessageList = new List<Type>();
+        private List<Type> _messageList = new List<Type>();
         public List<Type> MessageList
         {
             get
             {
-                return _MessageList;
+                return _messageList;
             }
             set
             {
-                _MessageList = value;
+                _messageList = value;
                 NotifyPropertyChanged("MessageList");
             }
         }
 
-        private Type _SelectedType;
+        private Type _selectedType;
         public Type SelectedType
         {
             get
             {
-                return _SelectedType;
+                return _selectedType;
             }
             set
             {
-                _SelectedType = value;
-                SelectedMessage = GenerateDynamicViewModel(_SelectedType);
+                _selectedType = value;
+                SelectedMessage = GenerateDynamicViewModel(_selectedType);
                 NotifyPropertyChanged("SelectedMessage");
             }
         }
 
-        private List<PropertyValues> _SelectedMessage;
+        private List<PropertyValues> _selectedMessage;
         public List<PropertyValues> SelectedMessage
         {
             get
             {
-                return _SelectedMessage;
+                return _selectedMessage;
             }
             set
             {
-                _SelectedMessage = value;
+                _selectedMessage = value;
                 NotifyPropertyChanged("SelectedMessage");
             }
         }
@@ -68,7 +68,7 @@ namespace MSMQWpf
 
                 var fact = new ReflectionHelper();
                 var theList = fact.GetMessageProperties(type);
-                var propertyValue = theList.Select(name => new PropertyValues { Name = name,Value = string.Empty}).ToList();
+                var propertyValue = theList.Select(name => new PropertyValues { Name = name, Value = string.Empty }).ToList();
 
                 message.AddRange(propertyValue);
 
@@ -77,17 +77,37 @@ namespace MSMQWpf
             return null;
         }
 
-        private List<string> _resultXML = new List<string>();
-        public List<string> ResultXML
+        private TextDocument _document;
+        public TextDocument Document
+        {
+            get { return _document; }
+            set { _document = value;
+            NotifyPropertyChanged("Document");
+            }
+        }
+
+        private string _message;
+        public string Message
+        {
+            get { return _message; }
+            set
+            {
+                _message = value;
+                NotifyPropertyChanged("Message");
+            }
+        }
+
+        private string _resultXml;
+        public string ResultXml
         {
             get
             {
-                return _resultXML;
+                return _resultXml;
             }
             set
             {
-                _resultXML = value;
-                NotifyPropertyChanged("ResultXML");
+                _resultXml = value;
+                NotifyPropertyChanged("ResultXml");
             }
         }
 
@@ -142,7 +162,7 @@ namespace MSMQWpf
 
         private bool CanLoadProperTies()
         {
-            if (MessageList.Count > 0) return true; 
+            if (MessageList.Count > 0) return true;
             return false;
         }
 
@@ -151,7 +171,7 @@ namespace MSMQWpf
             if (SelectedMessage != null) return true;
             return false;
         }
-        
+
         private void LoadProperties()
         {
             //theGrid.BindToList(type);
@@ -161,6 +181,11 @@ namespace MSMQWpf
         private void ConvertToXml()
         {
             var detail = Queue.SerializeTheMessage(SelectedMessage);
+            //ResultXml = detail.ToString();
+            //ResultXml = "<Section xmlns=\"http://schemas.microsoft.com/winfx/2006/xaml/presentation\" xml:space=\"preserve\" TextAlignment=\"Left\" LineHeight=\"Auto\" IsHyphenationEnabled=\"False\" xml:lang=\"en-us\" FlowDirection=\"LeftToRight\" NumberSubstitution.CultureSource=\"User\" NumberSubstitution.Substitution=\"AsCulture\" FontFamily=\"Segoe UI\" FontStyle=\"Normal\" FontWeight=\"Normal\" FontStretch=\"Normal\" FontSize=\"12\" Foreground=\"#FF000000\" Typography.StandardLigatures=\"True\" Typography.ContextualLigatures=\"True\" Typography.DiscretionaryLigatures=\"False\" Typography.HistoricalLigatures=\"False\" Typography.AnnotationAlternates=\"0\" Typography.ContextualAlternates=\"True\" Typography.HistoricalForms=\"False\" Typography.Kerning=\"True\" Typography.CapitalSpacing=\"False\" Typography.CaseSensitiveForms=\"False\" Typography.StylisticSet1=\"False\" Typography.StylisticSet2=\"False\" Typography.StylisticSet3=\"False\" Typography.StylisticSet4=\"False\" Typography.StylisticSet5=\"False\" Typography.StylisticSet6=\"False\" Typography.StylisticSet7=\"False\" Typography.StylisticSet8=\"False\" Typography.StylisticSet9=\"False\" Typography.StylisticSet10=\"False\" Typography.StylisticSet11=\"False\" Typography.StylisticSet12=\"False\" Typography.StylisticSet13=\"False\" Typography.StylisticSet14=\"False\" Typography.StylisticSet15=\"False\" Typography.StylisticSet16=\"False\" Typography.StylisticSet17=\"False\" Typography.StylisticSet18=\"False\" Typography.StylisticSet19=\"False\" Typography.StylisticSet20=\"False\" Typography.Fraction=\"Normal\" Typography.SlashedZero=\"False\" Typography.MathematicalGreek=\"False\" Typography.EastAsianExpertForms=\"False\" Typography.Variants=\"Normal\" Typography.Capitals=\"Normal\" Typography.NumeralStyle=\"Normal\" Typography.NumeralAlignment=\"Normal\" Typography.EastAsianWidths=\"Normal\" Typography.EastAsianLanguage=\"Normal\" Typography.StandardSwashes=\"0\" Typography.ContextualSwashes=\"0\" Typography.StylisticAlternates=\"0\"><Paragraph><Run>This is the </Run><Run FontWeight=\"Bold\">RichTextBox</Run></Paragraph></Section>";
+            //Document = new TextDocument(detail.ToString());
+            //Document.Text = ;
+            Message = detail.ToString();
         }
 
         private void LoadAssembly()

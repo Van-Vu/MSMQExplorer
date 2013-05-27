@@ -37,9 +37,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.AvalonEdit">
-      <HintPath>..\References\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -69,6 +66,7 @@
     <Compile Include="PropertyValues.cs" />
     <Compile Include="Queue.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="AvalonWrapper\MvvmTextEditor.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="DynamicGrid.xaml">
       <SubType>Designer</SubType>
@@ -111,6 +109,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="app.config" />
+    <EmbeddedResource Include="CustomHighlighting.xshd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,6 +120,10 @@
     <ProjectReference Include="..\Messages\Messages.csproj">
       <Project>{AA16C5D7-656E-47C7-994B-D833FF799689}</Project>
       <Name>Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\bodom\Downloads\Compressed\SharpDevelop-master\SharpDevelop-master\src\Libraries\AvalonEdit\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
+      <Project>{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}</Project>
+      <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
