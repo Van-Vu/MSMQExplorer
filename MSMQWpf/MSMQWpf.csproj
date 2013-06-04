@@ -37,6 +37,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -63,6 +67,7 @@
     <Compile Include="CollectionTest.cs" />
     <Compile Include="GenericExtension.cs" />
     <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="Message.cs" />
     <Compile Include="PropertyValues.cs" />
     <Compile Include="Queue.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -120,13 +125,12 @@
       <Project>{AA16C5D7-656E-47C7-994B-D833FF799689}</Project>
       <Name>Messages</Name>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\bodom\Downloads\Compressed\SharpDevelop-master\SharpDevelop-master\src\Libraries\AvalonEdit\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
-      <Project>{6C55B776-26D4-4DB3-A6AB-87E783B2F3D1}</Project>
-      <Name>ICSharpCode.AvalonEdit</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="template.xsl" />
+    <Content Include="template.xsl">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace MSMQWpf
 {
     using System.Messaging;
@@ -28,6 +30,9 @@ namespace MSMQWpf
         public static XElement SerializeTheMessage(object data)
         {
             var serializer = new XmlSerializer(data.GetType());
+            serializer.Serialize(Console.Out,data);
+            Console.WriteLine();
+            Console.ReadLine();
             var doc = new XDocument();
 
             using (XmlWriter xw = doc.CreateWriter())
